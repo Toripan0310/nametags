@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "nametags",
+	"version": "${version}",
+	"name": "NameTags",
+	"description": "ななしさん=そうくん",
+	"authors": [
+		"Toripan"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/nametags/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.github.toripan0310.nametags.NameTags"
+		],
+		"fabric-datagen": [
+			"com.github.toripan0310.nametags.NameTagsDataGenerator"
+		]
+	},
+	"mixins": [
+		"nametags.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
