@@ -15,11 +15,8 @@
 	"icon": "assets/nametags/icon.png",
 	"environment": "client",
 	"entrypoints": {
-		"main": [
+		"client": [
 			"com.github.toripan0310.nametags.NameTags"
-		],
-		"fabric-datagen": [
-			"com.github.toripan0310.nametags.NameTagsDataGenerator"
 		]
 	},
 	"mixins": [
