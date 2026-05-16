@@ -13,7 +13,7 @@
 	},
 	"license": "MIT",
 	"icon": "assets/nametags/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"main": [
 			"com.github.toripan0310.nametags.NameTags"
