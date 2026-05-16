@@ -3,7 +3,8 @@
 	"package": "com.github.toripan0310.nametags.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"client": [
-		"EntityRendererMixin"
+		"EntityRendererMixin",
+		"LivingEntityRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -26,6 +26,9 @@ public abstract class EntityRendererMixin<T extends Entity> {
 	@Shadow
 	public abstract Font getFont();
 
+	@Shadow
+	protected abstract void renderNameTag(T entity, Component displayName, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight);
+
 	@Inject(method = "shouldShowName", at = @At("HEAD"), cancellable = true)
 	private void alwaysShowName(T entity, CallbackInfoReturnable<Boolean> cir) {
 		if (entity instanceof Player) {
@@ -45,6 +48,7 @@ public abstract class EntityRendererMixin<T extends Entity> {
 		if (!(entity instanceof Player)) return;
 
 		ci.cancel();
+
 
 		Font font = getFont();
 		float nameWidth = font.width(displayName);
@@ -79,5 +83,23 @@ public abstract class EntityRendererMixin<T extends Entity> {
 		);
 
 		poseStack.popPose();
+	}
+	@Inject(method = "render", at = @At("HEAD"))
+	private void forceRenderNameTag(
+			T entity,
+			float entityYaw,
+			float partialTick,
+			PoseStack poseStack,
+			MultiBufferSource bufferSource,
+			int packedLight,
+			CallbackInfo ci
+	) {
+		if (!(entity instanceof Player)) return;
+
+		// 強制的にネームタグを描画
+		Component name = entity.getDisplayName();
+		if (name != null) {
+			this.renderNameTag(entity, name, poseStack, bufferSource, packedLight);
+		}
 	}
 }
