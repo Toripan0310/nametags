@@ -1,14 +1,11 @@
 package com.github.toripan0310.nametags.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import org.joml.Matrix4f;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,4 +34,23 @@ public abstract class EntityRendererMixin<T extends Entity> {
 	private int yellowNameTagColor(int originalColor) {
 		return 0xFFFFFF00; // 黄色
 	}
+
+	@Shadow
+	protected abstract void renderNameTag(T entity, Component displayName, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight);
+	@Inject(method = "render", at = @At("HEAD"))
+	private void forceRenderName(
+			T entity,
+			float entityYaw,
+			float partialTick,
+			PoseStack poseStack,
+			MultiBufferSource bufferSource,
+			int packedLight,
+			CallbackInfo ci
+	) {
+		if (!(entity instanceof Player)) return;
+		Component name = entity.getDisplayName();
+		if (name != null) {
+			this.renderNameTag(entity, name, poseStack, bufferSource, packedLight);
+		}
+		}
 }
